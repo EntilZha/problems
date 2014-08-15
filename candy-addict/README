@@ -1,0 +1,8 @@
+This is a coding challenge, the link can be found inside the code file. My goal was twofold, I wanted to first solve the problem using Go,
+then see how much GoRoutines could speed up. Since the simulation is sequential the chance for go routines is to run multiple simulations
+in parallel. With a small number of test cases which aren't very large, this gives a decent boost on a 4 core machine. You can try it yourself
+by using
+
+go test -bench=. -run=XXX -parallel=1 -cpu=4
+
+where -cpu=4 is replaced with the number of cores your machine has
