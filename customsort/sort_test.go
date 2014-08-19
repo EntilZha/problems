@@ -3,68 +3,59 @@ package customsort
 import (
 	"testing"
 
-	"github.com/stretchr/testify/assert"
+	. "github.com/smartystreets/goconvey/convey"
 )
 
+var t1 = []int{2, 1, 0}
+var t1e = []int{0, 1, 2}
+
+var t2 = []int{2, 0, 1, 3, 5, 4}
+var t2e = []int{0, 1, 2, 3, 4, 5}
+
+var t3 = []int{0, 0, 3, 3, 2, 1, 7, 6}
+var t3e = []int{0, 0, 1, 2, 3, 3, 6, 7}
+
+var t4 = []int{1}
+var t4e = []int{1}
+
 func TestInsertionSort(t *testing.T) {
-	t1 := []int{2, 1, 0}
-	t1e := []int{0, 1, 2}
-
-	t2 := []int{2, 0, 1, 3, 5, 4}
-	t2e := []int{0, 1, 2, 3, 4, 5}
-
-	t3 := []int{0, 0, 3, 3, 2, 1, 7, 6}
-	t3e := []int{0, 0, 1, 2, 3, 3, 6, 7}
-
 	var sorter Sorter
 	sorter = InsertionSorter{}
-	t1 = sorter.Sort(t1)
-	assert.Equal(t, t1, t1e)
-	t2 = sorter.Sort(t2)
-	assert.Equal(t, t2, t2e)
-	t3 = sorter.Sort(t3)
-	assert.Equal(t, t3, t3e)
+
+	Convey("Given an unsorted list", t, func() {
+		Convey("Insertion sort should sort it", func() {
+			So(sorter.Sort(t1), ShouldResemble, t1e)
+			So(sorter.Sort(t2), ShouldResemble, t2e)
+			So(sorter.Sort(t3), ShouldResemble, t3e)
+			So(sorter.Sort(t4), ShouldResemble, t4e)
+
+		})
+	})
 }
 
 func TestIsSorted(t *testing.T) {
-	t1 := []int{2, 1, 0}
-	t2 := []int{0, 1, 2}
-	t3 := []int{0, 0, 1, 2}
-	assert.Equal(t, IsSorted(t1), false)
-	assert.Equal(t, IsSorted(t2), true)
-	assert.Equal(t, IsSorted(t3), true)
-}
-
-func TestInsertionSortSwap(t *testing.T) {
-	t1 := []int{2, 1, 0}
-	sorter := InsertionSorter{}
-	sorter.Swap(&t1, 0, 1)
-	assert.Equal(t, t1, []int{1, 2, 0})
-	sorter.Swap(&t1, 1, 2)
-	assert.Equal(t, t1, []int{1, 0, 2})
+	Convey("Given a list", t, func() {
+		Convey("When it is unsorted IsSorted should return false", func() {
+			So(IsSorted(t1), ShouldEqual, false)
+			So(IsSorted(t3), ShouldEqual, false)
+		})
+		Convey("When it is sorted IsSorted should return true", func() {
+			So(IsSorted(t1e), ShouldEqual, true)
+			So(IsSorted(t2e), ShouldEqual, true)
+		})
+	})
 }
 
 func TestMergeSort(t *testing.T) {
-	t1 := []int{2, 1, 0}
-	t1e := []int{0, 1, 2}
-
-	t2 := []int{2, 0, 1, 3, 5, 4}
-	t2e := []int{0, 1, 2, 3, 4, 5}
-
-	t3 := []int{0, 0, 3, 3, 2, 1, 7, 6}
-	t3e := []int{0, 0, 1, 2, 3, 3, 6, 7}
-
-	t4 := []int{1}
-	t4e := []int{1}
-
 	var sorter Sorter
 	sorter = MergeSorter{}
-	t1 = sorter.Sort(t1)
-	assert.Equal(t, t1, t1e)
-	t2 = sorter.Sort(t2)
-	assert.Equal(t, t2, t2e)
-	t3 = sorter.Sort(t3)
-	assert.Equal(t, t3, t3e)
-	t4 = sorter.Sort(t4)
-	assert.Equal(t, t4, t4e)
+
+	Convey("Given an unsorted list", t, func() {
+		Convey("Merge sort should sort it", func() {
+			So(sorter.Sort(t1), ShouldResemble, t1e)
+			So(sorter.Sort(t2), ShouldResemble, t2e)
+			So(sorter.Sort(t3), ShouldResemble, t3e)
+			So(sorter.Sort(t4), ShouldResemble, t4e)
+		})
+	})
 }

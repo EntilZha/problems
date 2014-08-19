@@ -5,13 +5,11 @@ type Sorter interface {
 }
 
 func IsSorted(array []int) bool {
-	var prev int = -1
-	for _, e := range array {
-		if prev == -1 {
-			prev = e
+	for i := range array {
+		if i == 0 {
 			continue
 		}
-		if prev > e {
+		if array[i-1] > array[i] {
 			return false
 		}
 	}
